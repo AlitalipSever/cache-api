@@ -1,5 +1,5 @@
 const {verifyTokenAndAdmin, verifyToken} = require("../middlewares/verify-token")
-const {cacheDataGivenKey, allStoredKeys} = require("../controllers/cache-service")
+const {cacheDataGivenKey, allStoredKeys, createAndUpdateKey} = require("../controllers/cache-service")
 const router = require("express").Router()
 
 //CACHE DATA FOR GIVEN KEY
@@ -10,11 +10,7 @@ router.post("/getData", verifyTokenAndAdmin, cacheDataGivenKey)
 router.get("/all", verifyTokenAndAdmin, allStoredKeys)
 
 //CREATE/UPDATE KEY
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
-    console.log("CREATE/UPDATE KEY");
-    const id = req.params.id
-    console.log(id);
-})
+router.put("/createAndUpdate", verifyTokenAndAdmin, createAndUpdateKey)
 
 //REMOVE GIVEN KEY
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {

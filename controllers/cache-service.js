@@ -34,9 +34,35 @@ const allStoredKeys = async (req, res) => {
   }
 }
 
+const createAndUpdateKey = async (req, res) => {
+  try {
+      const dataId = req.body.id
+      const data = req.body.data
+
+      const updatedData = await CacheData.findByIdAndUpdate(
+          dataId,
+          //TODO Add id null check
+          {
+              $set: {data: data}
+          },
+          {new:true}
+      );
+      res.status(200).json(updatedData)             //TODO fix error sending
+  }catch (e) {
+
+      const data = req.body.data
+      const dataObj = {
+          data: data,
+      }
+      const newCacheData = new CacheData(dataObj)
+      const savedCacheData = await newCacheData.save()
+      res.status(201).json(savedCacheData)            //TODO send only data string
+  }
+}
 
 
 
 
 
-module.exports = {cacheDataGivenKey, allStoredKeys}
+
+module.exports = {cacheDataGivenKey, allStoredKeys, createAndUpdateKey}
