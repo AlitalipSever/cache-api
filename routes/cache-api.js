@@ -3,7 +3,7 @@ const {cacheDataGivenKey} = require("../controllers/cache-service")
 const router = require("express").Router()
 
 //CACHE DATA FOR GIVEN KEY
-router.get("/:id", verifyTokenAndAdmin, cacheDataGivenKey)
+router.post("/getData", verifyTokenAndAdmin, cacheDataGivenKey)
 
 
 //ALL STORED KEYS
