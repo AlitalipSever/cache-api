@@ -25,9 +25,18 @@ const cacheDataGivenKey = async (req, res) => {
 
 }
 
+const allStoredKeys = async (req, res) => {
+  try {
+      const cachedDatas = await CacheData.find().sort({createdAt:-1})
+      res.status(200).json(cachedDatas)
+  }catch (e) {
+      res.status(500).json("data not found")
+  }
+}
 
 
 
 
 
-module.exports = {cacheDataGivenKey}
+
+module.exports = {cacheDataGivenKey, allStoredKeys}
