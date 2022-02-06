@@ -60,9 +60,18 @@ const createAndUpdateKey = async (req, res) => {
   }
 }
 
+const removeGivenKey = async (req, res) => {
+    try{
+        await CacheData.findByIdAndDelete(req.body.id)
+        res.status(200).json("cache key has been deleted")
+    }catch (e) {
+        res.status(500).json(e)
+    }
+}
 
 
 
 
 
-module.exports = {cacheDataGivenKey, allStoredKeys, createAndUpdateKey}
+
+module.exports = {cacheDataGivenKey, allStoredKeys, createAndUpdateKey, removeGivenKey}
