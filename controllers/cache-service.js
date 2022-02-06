@@ -43,11 +43,9 @@ const createAndUpdateKey = async (req, res) => {
       if(dataId && data) {
 
           CacheData.count({}, async function (err, count) {           // get number counts all docs
-              console.log("Number of docs: ", count);
               if (count > DOCS_NUMBER_LIMIT) {                                                             // if the specified number exceeds
                   CacheData.findOne({}, [], {$orderby: {'updatedAt': -1}}, async function (err, lastDoc) {
-                      console.log(lastDoc.id);                                    // get last updated doc
-
+                                                                                                            // get last updated doc
                       const updatedData = await CacheData.findByIdAndUpdate(
                           lastDoc.id,                                               // update to over last updated doc
                           //TODO Add id null check
@@ -60,7 +58,6 @@ const createAndUpdateKey = async (req, res) => {
                   });
               } else {
                   CacheData.count({}, async function (err, count) {  // get number counts all docs
-                      console.log("Number of docs: ", count);
                       if (count === 0) {
                           const data = req.body.data
                           const dataObj = {
@@ -86,11 +83,8 @@ const createAndUpdateKey = async (req, res) => {
           });
       } else {
           CacheData.count({}, async function(err, count){
-              console.log( "Number of docs: ", count );
               if(count>DOCS_NUMBER_LIMIT){                              // if the specified number exceeds
                   CacheData.findOne({}, [], { $orderby : { 'updatedAt' : -1 } }, async function(err, lastDoc) {
-                      console.log( lastDoc.id );
-
                       const updatedData = await CacheData.findByIdAndUpdate(
                           lastDoc.id,                                   // update last doc
                           //TODO Add id null check
